@@ -1,38 +1,19 @@
 {
-    "manifest_version": 3,
-    "name": "Grazper++",
-    "version": "2.0",
-    "description": "Improves the UI for the annotation tool",
-    "permissions": [
-        "activeTab"
-    ],
-    "content_scripts": [
-        {
-            "matches": [
-                "*://annotation.grazper.net/*"
-            ],
-            "js": [
-                "injector.js"
-            ],
-            "css": [
-                "injected.css"
-            ],
-            "run_at": "document_end"
-        }
-    ],
-    "web_accessible_resources": [
-        {
-            "resources": [
-                "injectedScripts/*.js",
-                "injectedScripts/htmlComps/*.html",
-                "src/*",
-                "src/shared/*",
-                "src/shared/ProjectsPage/*",
-                "src/shared/ProjectsPage/*"
-            ],
-            "matches": [
-                "*://annotation.grazper.net/*"
-            ]
-        }
-    ]
+  "manifest_version": 3,
+  "name": "Mom helper",
+  "version": "1.0",
+  "host_permissions": ["*://ase.cardeno.com/*", "*://*.jobnet.dk/*"],
+  "content_scripts": [
+    {
+      "matches": ["*://ase.candeno.com/*", "*://*.jobnet.dk/*"],
+      "js": ["loader.js", "src/shared/tailwind.js", "src/shared/jspdf.js"],
+      "css": ["src/shared/daisyui.css", "src/jobnet/override.css"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["content.js", "src/**/*.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }
