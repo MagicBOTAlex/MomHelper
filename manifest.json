@@ -1,0 +1,38 @@
+{
+    "manifest_version": 3,
+    "name": "Grazper++",
+    "version": "2.0",
+    "description": "Improves the UI for the annotation tool",
+    "permissions": [
+        "activeTab"
+    ],
+    "content_scripts": [
+        {
+            "matches": [
+                "*://annotation.grazper.net/*"
+            ],
+            "js": [
+                "injector.js"
+            ],
+            "css": [
+                "injected.css"
+            ],
+            "run_at": "document_end"
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "injectedScripts/*.js",
+                "injectedScripts/htmlComps/*.html",
+                "src/*",
+                "src/shared/*",
+                "src/shared/ProjectsPage/*",
+                "src/shared/ProjectsPage/*"
+            ],
+            "matches": [
+                "*://annotation.grazper.net/*"
+            ]
+        }
+    ]
+}

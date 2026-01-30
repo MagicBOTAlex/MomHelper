@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>balls</title>
+        <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+        <script src="https://cdn.tailwindcss.com"></script>
+
+    </head>
+
+    <body style="height: 5rem; background-color: grey;" class="grid place-items-center">
+        <!-- StartExtract -->
+        <input type="checkbox" id="bindsCamSettings" autocomplete="off" class="modal-toggle" />
+        <div class="modal" role="dialog" onclick='window.bindsCamModal.removeAttribute("checked");'>
+            <div class="flex flex-col justify-center p-4 rounded-lg bg-base-100" onclick='event.stopPropagation()'>
+                <h3 class="text-lg font-bold text-base-content">Enter cam id for button</h3>
+                <div class="join pt-2">
+                    <input id="newBindInput" type="number" placeholder="Type here" class="join-item input input-bordered w-full max-w-xs" />
+                    <button class="btn btn-outline join-item" onclick="window.binds_submitNewBind()">OK</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex justify-center align-center bg-base-300 p-2 rounded-lg">
+            <div class="flex flex-col p-1 w-24">
+                <span style="font-size: 0.75rem;">Camera binds: </span>
+                <span style="font-size: 0.5rem;" >(Click to rebind)</span>
+            </div>
+            <div class="flex flex-col justify-center align-middle">
+                <div class="join">
+                    <button id="bindsCam0" class="btn bindsCam btn-sm btn-outline join-item">0</button>
+                    <button id="bindsCam1" class="btn bindsCam btn-sm btn-outline join-item">4</button>
+                    <button id="bindsCam2" class="btn bindsCam btn-sm btn-outline join-item">10</button>
+                    <button id="bindsCam3" class="btn bindsCam btn-sm btn-outline join-item">14</button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            let selectedbindsCamButton = undefined;
+            window.bindsCamModal = document.getElementById("bindsCamSettings");
+            const cookieName = "customBinds";
+            const numButtons = 4;
+
+            window.bindColors = ["#39C652", "#3966C6", "#C639AD", "#C69939"];
+
+            window.binds_onBtnClick = function onBtnClick(e) {
+                let id = e.target.id;
+                selectedbindsCamButton = e.target.id;
+                bindsCamModal.setAttribute("checked", "true");
+            }
+
+            
+            // Attach events and colors to buttons
+            const buttons = document.querySelectorAll('.bindsCam');
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].addEventListener('click', window.binds_onBtnClick);
+                buttons[i].style = "border-bottom: solid 0.25rem" + window.bindColors[i] + ";";
+            }
+
+            // Reload saved binds
+            window.reloadBinds = () => {
+                window.currentBindsCookie = JSON.parse(getCookie(cookieName));
+                if (!window.currentBindsCookie)
+                    window.currentBindsCookie = { binds: new Array(numButtons).fill(null)};
+                for (let i = 0; i < numButtons; i++){
+                    let bindButton = document.getElementById("bindsCam" + i);
+                    let oldBind = window.currentBindsCookie.binds[i];
+                    if (!!oldBind) {
+                        bindButton.innerHTML = oldBind;
+                    }
+                }
+            }
+            window.reloadBinds();
+
+
+            // Function to set a cookie that expires in 2 weeks
+            window.binds_setCookie = function setCookie(name, value) {
+                const date = new Date();
+                // Set the expiration date to 14 days from now
+                date.setTime(date.getTime() + (14 * 24 * 60 * 60 * 1000));
+                const expires = "expires=" + date.toUTCString();
+                var domain = window.location.host.split(/\.(.+)/)[1];
+                document.cookie = name + "=" + encodeURIComponent(value) + ";" + expires + ";";
+            }
+
+            // Function to get the value of a cookie by name
+            window.binds_getCookie = function getCookie(name) {
+                const nameEQ = name + "=";
+                const cookiesArray = document.cookie.split(';');
+                for (let i = 0; i < cookiesArray.length; i++) {
+                    let cookie = cookiesArray[i];
+                    while (cookie.charAt(0) === ' ') cookie = cookie.substring(1, cookie.length);
+                    if (cookie.indexOf(nameEQ) === 0) {
+                        return decodeURIComponent(cookie.substring(nameEQ.length, cookie.length));
+                    }
+                }
+                return null;
+            }
+
+            window.binds_submitNewBind = function submitNewBind(){
+                let inputField = document.getElementById("newBindInput");
+                let newBind = inputField.value;
+                inputField.value = "";
+                bindsCamModal.removeAttribute("checked");
+
+                let bindId = parseInt(selectedbindsCamButton.slice(-1));
+                window.currentBindsCookie.binds[bindId] = newBind;
+                setCookie(cookieName, JSON.stringify(window.currentBindsCookie)); // Save to cookie
+                window.reloadBinds();
+
+                console.log("New bind selected for " + selectedbindsCamButton);
+            }
+        </script>
+        
+
+        <!-- EndExtract -->
+    </body>
+
+</html>

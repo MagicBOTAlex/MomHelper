@@ -1,0 +1,868 @@
+:root {
+    --border-padding: 15px;
+}
+
+.light {
+    --background-color: #f3efef;
+    --text-color: black;
+    --card-background: white;
+    --multicombo-background-color: white;
+    --multicombo-border-color: #888;
+    --card-shadow-color: #a7b4c3 ;
+    --bar-separation-color: #888;
+
+    --pop-up-window-blur-color: rgba(238, 240, 244, 0.4);
+    --pop-up-window-background-color: white;
+
+    /* --top-bar-color: #315588; */
+    --logo-color: white;
+    --top-bar-button-color: #d0d9e1;
+    --top-bar-button-color-hover: #ffffff;
+    --top-bar-button-text-color: black;
+    --top-bar-button-color-disabled: #aaaaaa;
+    --top-bar-button-text-color-disabled: #444444;
+
+    --brand500: #2177D9;
+    --brand600: #2177D9;
+    --brand900: #00183D;
+
+    --not-selected: #D0D9E1;
+    --gray: #4B5E71;
+}
+
+.dark {
+    color-scheme: dark;
+    --background-color: #171717;
+    --text-color: white;
+    --card-background: #323432;
+    --multicombo-background-color: #3f4341;
+    --multicombo-border-color: #3f4341;
+    --card-shadow-color: none ;
+    --bar-separation-color: #888;
+
+    --pop-up-window-blur-color: rgba(17, 17, 17, 0.4);
+    --pop-up-window-background-color: #323432;
+
+    /* --top-bar-color: #315588; */
+    --logo-color: white;
+    --top-bar-button-color: #d0d9e1;
+    --top-bar-button-color-hover: #ffffff;
+    --top-bar-button-text-color: black;
+    --top-bar-button-color-disabled: #aaaaaa;
+    --top-bar-button-text-color-disabled: #cccccc;
+
+    --brand500: #2177D9;
+    --brand600: #2177D9;
+    --brand900: #00183D;
+
+    --not-selected: #D0D9E1;
+    --gray: #4B5E71;
+}
+
+html {
+    /* font-family: Arial, Helvetica, sans-serif; */
+    font-family: 'Roboto', sans-serif;
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+/* ========== Popup window ========== */
+
+.pop-up-window-background {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: var(--pop-up-window-blur-color);
+    display: none;
+}
+
+.pop-up-window {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    background-color: var(--pop-up-window-background-color);
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    width: 30%;
+}
+
+.modal-window {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    background-color: var(--pop-up-window-background-color);
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    height: 80%;
+    width: 80%;
+}
+
+.modal-window .netui-window-content-div, .modal-window .netui-widget-group {
+    height: 100%;
+}
+.iframe {
+    height: 90%;
+    width: 100%;
+}
+/* ========== UI shape ========== */
+
+.main_div {
+    display: grid;
+    box-sizing: border-box;
+    max-width: 100%;
+    height: 100%;
+    margin: 0 auto;
+
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 2.5fr 10fr 4fr;
+
+    grid-template-areas: 
+        "top-bar top-bar top-bar"
+        "left-menu center-menu right-menu";
+}
+
+.top-bar {
+    grid-area: top-bar;
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1em;
+    font-weight: bold;
+    padding: var(--border-padding);
+    margin-bottom: 20px;
+    background-color: var(--top-bar-color);
+}
+
+.left-menu {
+    font-size: 1rem;
+    grid-area: left-menu;
+    display: flex;
+    min-height: 0;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: var(--border-padding);
+    margin-bottom: var(--border-padding);
+}
+
+.center-menu {
+    grid-area: center-menu;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 0;
+    margin-bottom: var(--border-padding);
+}
+
+.right-menu {
+    grid-area: right-menu;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 0;
+    margin-right: var(--border-padding);
+    margin-bottom: var(--border-padding);
+}
+
+/* ========== Flexbox madness ========== */
+.thumbnail-menu {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 1;
+    min-height: 0;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+}
+
+.viewport {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-height: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.layers-menus, .camera-character-menus, .plugin-menus {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 400px;
+    min-height: 0;
+}
+
+.camera-menu, .plugin-menu, .management-plugin-menu, .character-menu, .plugin-io-container {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Make the content inside window resizable */
+.thumbnail-menu .netui-window-content-div, .camera-menu .netui-window-content-div, .plugin-menu .netui-window-content-div, .management-plugin-menu .netui-window-content-div, .character-menu .netui-window-content-div {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Same but for the layers (slightly more cumbersome since we need to fix the buttons too) */
+.layer2d-menu, .layer3d-menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.layer2d-list, .layer3d-list {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.layer2d-list .netui-window-content-div, .layer3d-list .netui-window-content-div {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Plugin IO menu */
+.plugin-io-container {
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: 600px;
+    min-height: 0;
+    justify-content: space-between;
+}
+
+.plugin-io-menu {
+    flex-shrink: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.plugin-io-menu .netui-window-content-div{
+    flex-shrink: 1;
+    min-height: 0;
+    overflow: auto
+}
+
+.plugin-description-content {
+    display: inline-block;
+    width: 90%;
+    margin: 2px;
+    margin-top: 10px;
+    padding: 0.5rem;
+    border: 1px solid #888 ;
+    border-radius: 5px;
+    background-color: #eee;
+    text-align: justify;
+}
+
+/* lists that shrink and grow */
+.layer2d-list .netui-multicombo, .layer3d-list .netui-multicombo,  .camera-menu .netui-multicombo, .plugin-menu .netui-multicombo, .management-plugin-menu .netui-multicombo, .character-menu .netui-multicombo {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-height: 0;
+}
+
+/* Double columns of the menus */
+.layers-menus, .camera-character-menus, .frame-menus, .plugin-menus{
+    display: flex;
+}
+
+.layer2d-menu, .layer3d-menu, .camera-menu, .character-menu, .plugin-menu, .management-plugin-menu, .first-frame-menu, .last-frame-menu{
+    box-sizing: border-box;
+    margin: 0;
+    width: 50%;
+}
+
+/* ========== Menu cards styling ========== */
+.left-menu {
+    background-color: var(--card-background);
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px var(--card-shadow-color);
+    margin-right: 10px;
+    padding: 10px;
+}
+.controls {
+    background-color: var(--card-background);
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px var(--card-shadow-color);
+    margin-top: 10px;
+    padding: 10px;
+}
+.right-menu {
+    background-color: var(--card-background);
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px var(--card-shadow-color);
+    margin-left: 10px;
+    padding: 10px;
+}
+/* .thumbnail-menu {
+    background-color: var(--card-background);
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px var(--card-shadow-color);
+    margin-right: 10px;
+    padding: 10px;
+}
+
+.top-down-menu {
+    background-color: var(--card-background);
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px var(--card-shadow-color);
+    margin-right: 10px;
+    padding: 0px;
+}
+
+.controls {
+    background-color: var(--card-background);
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px var(--card-shadow-color);
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.layers-menus, .camera-character-menus, .frame-menus, .plugin-menu, .plugin-io-container {
+    background-color: var(--card-background);
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px var(--card-shadow-color);
+    margin-left: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.plugin-io-container {
+    margin-bottom: 0;
+} */
+
+/* .plugin-io-container {
+    margin-bottom: 0;
+} */
+/* .right-menu .layer3d-menu {
+    background-color: var(--card-background);
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px var(--card-shadow-color);
+    margin-left: 20px;
+    padding: 10px;
+} */
+
+/* ========== Inner menu components styling ========== */
+
+.netui-widget-group, .netui-window-label-div {
+    max-width: none;
+}
+.left-menu .netui-window-label-div {
+    font-size: 1rem;
+}
+.right-menu .netui-window-label-div {
+    font-size: 0.9rem;
+}
+.netui-window-label-div {
+    border-bottom: 1px solid var(--bar-separation-color);
+}
+.netui-widget-label {
+    font-size: 0.8rem;
+    font-weight:600;
+}
+
+.netui-widget-inlinebutton {
+    display: inline-block;
+    padding: 5px;
+}
+.netui-widget-inlinebutton button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.grazper-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.toggle-light-dark-mode {
+    margin-left: 40px;
+    color: var(--logo-color);
+    cursor: pointer;
+}
+
+.top-bar .grazper-logo svg path, .top-bar .grazper-logo svg polygon{
+    fill: var(--logo-color);
+}
+
+.top-bar .netui-window-content-div {
+    margin: 0;
+    padding: 0;
+}
+.top-bar .netui-widget-group {
+    margin: 0;
+}
+.top-bar p {
+    font-size: 0.8rem;
+    margin: 0;
+    color: var(--logo-color);
+}
+
+.top-bar .save-load-workspace-menu button {
+    font-size: 0.8rem;
+    width: auto;
+    background-color: var(--top-bar-button-color);
+    color: var(--top-bar-button-text-color);
+    border: 1px solid var(--top-bar-button-color);
+}
+.top-bar .save-load-workspace-menu button:hover {
+    background-color: var(--top-bar-button-color-hover);
+    color: var(--top-bar-button-text-color);
+    border: 1px solid var(--top-bar-button-color);
+}
+
+.top-bar .undo_btn_wnd button {
+    font-size: 0.8rem;
+    width: auto;
+    background-color: var(--top-bar-button-color);
+    color: var(--top-bar-button-text-color);
+    border: 1px solid var(--top-bar-button-color);
+}
+.top-bar .undo_btn_wnd button:hover {
+    background-color: var(--top-bar-button-color-hover);
+    color: var(--top-bar-button-text-color);
+    border: 1px solid var(--top-bar-button-color);
+}
+.top-bar .undo_btn_wnd button:disabled {
+    background-color: var(--top-bar-button-color-disabled);
+    color: var(--top-bar-button-text-color-disabled);
+    border: 1px solid var(--top-bar-button-color-disabled);
+    cursor: auto;
+}
+
+
+
+
+.left-menu, .right-menu {
+    font-size: 0.7rem;
+}
+.right-menu input, .right-menu select {
+    font-size: 0.7rem;
+}
+
+.viewport-img-container {
+    position: relative;
+    height: 100%;
+}
+
+.viewport-img {
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+}
+
+.viewport-svg {
+    padding: 0;
+    position: absolute;
+    top : 0;
+    left : 0;
+    height: 100%;
+    width: 100%;
+}
+
+.player-bar-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.player-bar {
+    cursor: pointer;
+    margin: 0.5rem auto;
+    width: 95%;
+    accent-color: var(--brand500);
+    color: red;
+}
+
+.player-bar-wrapper output {
+    font-size: 0.8rem;
+    text-align: right;
+    margin: auto;
+    width: 95%;
+}
+
+.video-control-buttons .netui-window-content-div{
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    margin-top: -1rem;
+}
+.video-control-buttons .netui-widget-inlinebutton button {
+    height: 1.8rem;
+    width: 1.8rem;
+    border-radius: 40%;
+    background-color: var(--top-bar-button-color);
+    color: var(--top-bar-button-text-color);
+    border: 1px solid var(--top-bar-button-color);
+}
+
+.video-control-buttons .netui-widget-inlinebutton button:hover {
+    background-color: var(--top-bar-button-color);
+    color: var(--top-bar-button-text-color);
+    border: 1px solid var(--top-bar-button-color-hover);
+}
+
+.play-pause-button .netui-widget-button-off, .play-pause-button .netui-widget-button-on {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: var(--brand500);
+    border: 1px solid var(--brand500);
+    font-size: 1em;
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    margin: 0 1rem;
+}
+.play-pause-button .netui-widget-button-off:hover, .play-pause-button .netui-widget-button-on:hover {
+    border: 1px solid var(--brand900);
+}
+.play-icon, .pause-icon{
+    color: white;
+    fill: white;
+    height: 1.3rem;
+    width: 1.3rem;
+}
+.play-icon {
+    margin-left: 0.2rem;
+}
+
+.netui-multicombo {
+    border: 1px solid var(--multicombo-border-color);
+    border-radius: 10px;
+    overflow: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    background-color: var(--multicombo-background-color);
+}
+
+.netui-multicombo-ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.netui-multicombo-li a {
+    display: block;
+    cursor: pointer;
+    padding: 0.6em;
+    margin: 0.5em;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.netui-multicombo-selected {
+    background-color: var(--brand500);
+    border: 1px solid var(--brand500);
+    color: white;
+}
+
+.netui-multicombo-notselected {
+    background-color: var(--not-selected);
+    border: 1px solid var(--not-selected);
+    color: black;
+}
+.light .netui-multicombo-notselected:hover {
+    border: 1px solid var(--gray);
+}
+
+.netui-topdown-menu {
+    position: relative;
+    aspect-ratio : 1 / 1;
+    border-radius: 10px;
+    background-color: var(--multicombo-background-color);
+    border: 1px solid var(--multicombo-border-color);
+}
+
+.netui-topdown-element {
+    position: absolute;
+    padding: auto;
+    cursor: pointer;
+}
+.netui-topdown-label {
+    height: 1em;
+    margin: 0;
+}
+
+.netui-topdown-circle {
+    width: 1.7em;
+    height: 1.7em;
+    border: 1px solid var(--not-selected);
+    border-radius: 50%;
+    background-color: var(--not-selected);
+    margin: 0.5em auto 0 auto;
+}
+.netui-topdown-circle:hover {
+    border: 1px solid var(--not-selected);
+}
+
+.netui-topdown-element-selected {
+    font-weight: bold;
+}
+
+.netui-topdown-element-selected .netui-topdown-circle {
+    background-color: var(--brand500);
+    border: 1px solid var(--brand500);
+}
+
+.layer2d-buttons .netui-window-content-div, .layer3d-buttons .netui-window-content-div {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.layer2d-buttons button, .layer3d-buttons button {
+    font-size: 0.7rem;
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.frame-menus .netui-window-content-div, .frame-menus .netui-widget-group {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.plugin-io-menu .netui-widget-combo-select {
+    min-width: 5rem;
+}
+.light .plugin-io-menu .netui-widget-combo-select {
+    background-color: var(--not-selected);
+}
+
+.plugin-io-menu .plugin-description-content {
+    background-color: var(--not-selected);
+    color: black;
+}
+
+.run-plugin-button .netui-window-content-div {
+    margin: 0;
+    padding: 0;
+    padding: 5px;
+    margin: 5px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-top: 1px solid var(--bar-separation-color);
+}
+.run-plugin-button .netui-widget-inlinebutton {
+    display: flex;
+    justify-content: center;
+}
+
+.run-plugin-button .netui-widget-inlinebutton button:disabled{
+    background-color: #888;
+}
+
+.pop-up-window .netui-progress-bar{
+    width: 100%;
+    height: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+    padding: 0;
+}
+
+.pop-up-window .netui-progress-bar-text {
+    text-align: right;
+}
+
+.pop-up-window .pop-up-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.netui-widget-inlinebutton button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: white;
+    background-color: var(--brand500);
+    border: 1px solid var(--brand500);
+}
+
+.netui-widget-inlinebutton button:hover {
+    background-color: var(--brand500);
+    border: 1px solid var(--brand900);
+}
+
+.netui-widget-button {
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: white;
+    background-color: var(--brand500);
+    border: 1px solid var(--brand500);
+    padding: 8px 10px;
+}
+
+.netui-widget-button:hover {
+    background-color: var(--brand500);
+    border: 1px solid var(--brand900);
+}
+
+.actor-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.actor-gallery-item-selected, .actor-gallery-item-notselected {
+    max-width: 45%;
+    height: auto;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.actor-gallery-item-notselected {
+    filter: grayscale(80%);
+    border: 2px solid var(--background-color);
+}
+
+.actor-gallery-item-notselected:hover {
+    border: 2px solid var(--multicombo-border-color);
+}
+
+.actor-gallery-item-selected {
+    border: 2px solid var(--brand500);
+    filter: grayscale(0%);
+}
+
+.netui-tagger {
+    position: relative;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11pt;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    padding-left: 0.7rem;
+    padding-right: 0.7rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-top: 0.2rem;
+    border: 1px solid #888;
+    border-radius: 5px;
+    background-color: #fafafa;
+}
+
+.netui-tagger-label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11pt;
+}
+
+.netui-tagger-tag {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    background-color: #D0D9E1;
+    border: 1px solid #D0D9E1;
+    gap: 0.5rem;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+    overflow: hidden;
+}
+
+.netui-tagger-remove {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border: 0;
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.netui-tagger-input {
+    min-width: 3.5rem;
+    flex-basis: 0;
+    flex-shrink: 1;
+    flex-grow: 1;
+    border: 0;
+    outline: none;
+    background-color: transparent;
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+}
+
+.netui-tagger-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0%;
+    max-height: 8rem;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: none;
+    width: 100%;
+    z-index: 1000;
+    border-radius: 5px;
+    border: 1px solid #888;
+    background-color: white;
+    overflow-y: scroll;
+}
+
+.netui-tagger-suggestions li {
+    padding: 0.5rem 0.25rem;
+}
+
+.netui-tagger-suggestions .active {
+    background-color: #D0D9E1;
+}
+
+.netui-description-label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11pt;
+}
+
+.netui-description-input {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10pt;
+    box-sizing: border-box;
+    width: 100%;
+    padding-left: 0.7rem;
+    padding-right: 0.7rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-top: 0.2rem;
+    border: 1px solid #888;
+    border-radius: 5px;
+    background-color: #fafafa;
+    min-height: 6rem;
+}
