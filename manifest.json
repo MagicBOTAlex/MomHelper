@@ -2,10 +2,18 @@
   "manifest_version": 3,
   "name": "Mom helper",
   "version": "1.0",
-  "host_permissions": ["*://ase.cardeno.com/*", "*://*.jobnet.dk/*"],
+  "host_permissions": [
+    "*://ase.cardeno.com/*",
+    "*://*.jobnet.dk/*",
+    "*://*.ase.dk/*"
+  ],
   "content_scripts": [
     {
-      "matches": ["*://ase.candeno.com/*", "*://*.jobnet.dk/*"],
+      "matches": [
+        "*://*.ase.dk/*",
+        "*://ase.candeno.com/*",
+        "*://*.jobnet.dk/*"
+      ],
       "js": ["loader.js", "src/shared/tailwind.js", "src/shared/jspdf.js"],
       "css": ["src/shared/daisyui.css", "src/jobnet/override.css"]
     }
